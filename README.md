@@ -1,6 +1,4 @@
-Here’s a **clean, production-ready updated `README.md`** for your project. I’ve kept it simple, structured, and aligned with what you’ve actually built (FastAPI + Supabase + OpenAI).
 
-You can copy-paste this directly 👇
 
 ---
 
@@ -63,7 +61,7 @@ movie-booking-app/
 ````
 
 ---
-
+git remote add origin https://github.com/dhruvDS13/Movie-Booking-With-Chatbot.git
 # ⚙️ Setup (Local Development)
 
 ### 1. Go to backend
