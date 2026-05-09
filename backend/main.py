@@ -35,3 +35,6 @@ app.include_router(bookings.router)
 frontend_dir = Path(__file__).resolve().parent.parent / "frontend"
 if frontend_dir.exists():
     app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+@app.get("/health")
+def health():
+    return {"status": "ok"}

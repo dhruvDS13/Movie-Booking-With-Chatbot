@@ -1,4 +1,5 @@
-const apiBase = "https://movie-booking-with-chatbot.onrender.com";
+const apiBase = window.location.origin;
+//const apiBase = "https://movie-booking-with-chatbot.onrender.com";
 //const apiBase = window.location.origin.includes("8000") ? "" : "http://localhost:8000";
 const userId = localStorage.getItem("bookmymovie_user") || crypto.randomUUID();
 localStorage.setItem("bookmymovie_user", userId);
