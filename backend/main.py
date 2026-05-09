@@ -14,9 +14,7 @@ load_dotenv(dotenv_path=env_path)
 app = FastAPI(title="BookMyMovie AI", version="1.0.0")
 
 origins = [
-    origin.strip()
-    for origin in os.getenv("CORS_ORIGINS", "*").split(",")
-    if origin.strip()
+    "https://movie-booking-with-chatbot.vercel.app",
 ]
 
 app.add_middleware(
