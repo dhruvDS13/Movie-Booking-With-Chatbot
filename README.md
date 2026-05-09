@@ -62,6 +62,9 @@ movie-booking-app/
 
 ---
 git remote add origin https://github.com/dhruvDS13/Movie-Booking-With-Chatbot.git
+git add .
+git commit -m "your message"
+git push
 # ⚙️ Setup (Local Development)
 
 ### 1. Go to backend
