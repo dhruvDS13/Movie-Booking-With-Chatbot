@@ -1,7 +1,5 @@
 from fastapi import APIRouter, Query
-
-from services.booking_service import booking_service
-
+from services.tmdb_service import get_trending_movies
 
 router = APIRouter(prefix="/movies", tags=["movies"])
 
@@ -12,4 +10,20 @@ def get_movies(
     q: str | None = None,
     limit: int = Query(default=12, ge=1, le=30),
 ):
-    return booking_service.get_movies(genre=genre, q=q, limit=limit)
+    movies = get_trending_movies()
+
+    # genre filter
+    if genre:
+        movies = [
+            movie for movie in movies
+            if genre.lower() in movie.get("overview", "").lower()
+        ]
+
+    # search filter
+    if q:
+        movies = [
+            movie for movie in movies
+            if q.lower() in movie.get("title", "").lower()
+        ]
+
+    return movies[:limit]
