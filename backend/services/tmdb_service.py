@@ -3,12 +3,12 @@ import requests
 
 TMDB_TOKEN = os.getenv("TMDB_READ_ACCESS_TOKEN")
 
+BASE_URL = "https://api.themoviedb.org/3"
+
 headers = {
     "accept": "application/json",
     "Authorization": f"Bearer {TMDB_TOKEN}"
 }
-
-BASE_URL = "https://api.themoviedb.org/3"
 
 
 def get_trending_movies():
@@ -25,8 +25,11 @@ def get_trending_movies():
             "id": movie.get("id"),
             "title": movie.get("title"),
             "overview": movie.get("overview"),
-            "rating": movie.get("vote_average"),
+            "rating": movie.get("vote_average", 0),
+            "genres": ["Trending"],
             "poster": f"https://image.tmdb.org/t/p/w500{movie.get('poster_path')}"
+            if movie.get("poster_path")
+            else ""
         })
 
     return movies

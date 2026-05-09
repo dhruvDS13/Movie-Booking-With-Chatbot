@@ -36,22 +36,52 @@ async function getJson(path, options) {
 
 async function loadMovies(query = "") {
   const params = new URLSearchParams({ limit: "12" });
-  if (query) params.set("q", query);
+
+  if (query) {
+    params.set("q", query);
+  }
+
   const movies = await getJson(`/movies?${params.toString()}`);
+
   movieGrid.innerHTML = "";
+
   movies.forEach((movie) => {
     const card = document.createElement("article");
-    card.className = "rounded-lg border border-zinc-800 bg-zinc-900 p-4";
+
+    card.className =
+      "rounded-lg border border-zinc-800 bg-zinc-900 p-4";
+
     card.innerHTML = `
+      <img 
+        src="${movie.poster}" 
+        class="mb-3 h-72 w-full rounded-md object-cover"
+      />
+
       <div class="flex items-start justify-between gap-3">
         <h3 class="font-semibold">${movie.title}</h3>
-        <span class="rounded bg-zinc-800 px-2 py-1 text-xs">${movie.rating.toFixed(1)}</span>
+
+        <span class="rounded bg-zinc-800 px-2 py-1 text-xs">
+          ⭐ ${Number(movie.rating || 0).toFixed(1)}
+        </span>
       </div>
-      <p class="mt-2 line-clamp-3 text-sm text-zinc-400">${movie.overview || "No overview available."}</p>
-      <p class="mt-3 text-xs text-zinc-500">${movie.genres.slice(0, 3).join(" / ")}</p>
-      <button class="mt-4 w-full rounded-md bg-zinc-100 px-3 py-2 text-sm font-semibold text-zinc-950">View Shows</button>
+
+      <p class="mt-2 line-clamp-3 text-sm text-zinc-400">
+        ${movie.overview || "No overview available."}
+      </p>
+
+      <p class="mt-3 text-xs text-zinc-500">
+        ${(movie.genres || ["Trending"]).join(" / ")}
+      </p>
+
+      <button class="mt-4 w-full rounded-md bg-zinc-100 px-3 py-2 text-sm font-semibold text-zinc-950">
+        View Shows
+      </button>
     `;
-    card.querySelector("button").addEventListener("click", () => loadShows(movie));
+
+    card
+      .querySelector("button")
+      .addEventListener("click", () => loadShows(movie));
+
     movieGrid.appendChild(card);
   });
 }
